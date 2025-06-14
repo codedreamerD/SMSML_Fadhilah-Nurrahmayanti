@@ -1,0 +1,3 @@
+# Ignore MLflow logs and artifacts
+mlruns/
+mlartifacts/
