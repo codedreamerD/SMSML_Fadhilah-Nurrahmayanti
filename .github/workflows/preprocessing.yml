@@ -1,0 +1,43 @@
+name: CI/CD Pipeline for Automate_Fadhilah.py
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  preprocessing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas
+
+      - name: Verify if CSV file exists
+        run: |
+          ls -l Eksperimen_SML_Fadhilah-Nurrahmayanti/dataset_raw/StudentsPerformance_raw.csv
+
+      - name: Run Automate_Fadhilah.py
+        run: |
+          python Eksperimen_SML_Fadhilah-Nurrahmayanti/preprocessing/Automate_Fadhilah.py
+
+      - name: Commit and push updated dataset
+        run: |
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
+          git add Eksperimen_SML_Fadhilah-Nurrahmayanti/preprocessing/dataset_preprocessed/*
+          git commit -m "Update hasil preprocessing otomatis" || echo "Tidak ada perubahan"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
