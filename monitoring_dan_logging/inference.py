@@ -13,7 +13,8 @@ import random
 from prometheus_client import Counter, Histogram, Gauge, Summary, generate_latest
 
 # Create FastAPI app
-app = FastAPI(title="Student Performance API", description="Model serving API with Prometheus monitoring")
+app = FastAPI(title="Student Performance API", 
+              description="Model serving API with Prometheus monitoring")
 
 # Define Prometheus metrics
 REQUESTS = Counter('student_requests_total', 'Total number of requests to the API', ['method', 'endpoint', 'status'])
@@ -53,7 +54,7 @@ def load_model():
             # Fallback to local model file
             model_path = os.path.join(os.path.dirname(__file__), "models", "best_model.pkl")
             model = joblib.load(model_path)
-
+        
         MODEL_LOAD_TIME.set(time.time() - start_time)
         return model
     except Exception as e:
@@ -91,7 +92,7 @@ async def metrics():
     # Simulate system metrics for demo
     SYSTEM_MEMORY.set(random.randint(1000000, 2000000))
     SYSTEM_CPU.set(random.uniform(10, 90))
-
+    
     return generate_latest()
 
 # Root endpoint with updated HTML and styling
@@ -179,19 +180,19 @@ async def root():
             <div class="container">
                 <h1>Welcome to the Student Performance API</h1>
                 <p>This API predicts student performance levels based on input features. Use it to assess performance predictions in real-time!</p>
-
+                
                 <div class="endpoint">
                     <h3>Predict Endpoint</h3>
                     <p>To make predictions, send POST requests to <code>/predict</code> with the following JSON data format:</p>
                     <pre><code>{"performance_level": "A"}</code></pre>
                     <p>This will return a prediction of the student's performance level.</p>
                 </div>
-
+                
                 <div class="endpoint">
                     <h3>Metrics Endpoint</h3>
                     <p>Monitor the health and status of the API using Prometheus metrics by accessing <a href="/metrics">/metrics</a>.</p>
                 </div>
-
+                
                 <div class="endpoint">
                     <h3>Health Check</h3>
                     <p>Check the overall health of the API by visiting <a href="/health">/health</a>.</p>
@@ -213,21 +214,21 @@ def predict(features: PerformanceLevel):
     # Start timing
     with PREDICTION_TIME.time():
         start_time = time.time()
-
+        
         try:
             # Log feature values
             feature_array = np.array([[
                 features.performance_level
             ]])
-
+            
             # Update feature gauges
             FEATURE_GAUGE.labels(feature="performance_level").set(features.performance_level)
 
-
+            
             # Make prediction
             prediction = int(model.predict(feature_array)[0])
             PREDICTIONS.labels(class_name=class_names[prediction]).inc()
-
+            
             # Get probabilities if available
             probabilities = {}
             if hasattr(model, "predict_proba"):
@@ -236,10 +237,10 @@ def predict(features: PerformanceLevel):
                     class_name = class_names[i]
                     probabilities[class_name] = float(p)
                     MODEL_CONFIDENCE.labels(class_name=class_name).observe(p)
-
+            
             # Calculate processing time
             processing_time = time.time() - start_time
-
+            
             # Return prediction
             return {
                 "prediction": prediction,
@@ -247,7 +248,7 @@ def predict(features: PerformanceLevel):
                 "probability": probabilities,
                 "processing_time": processing_time
             }
-
+            
         except Exception as e:
             PREDICTION_ERRORS.labels(error_type="prediction_error").inc()
             raise HTTPException(status_code=500, detail=str(e))
