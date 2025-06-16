@@ -20,7 +20,7 @@ from eli5.sklearn import explain_weights
 # === MLflow Tracking (DagsHub)
 dagshub.init(repo_owner='codedreamerD', repo_name='SMSML_Fadhilah-Nurrahmayanti', mlflow=True)
 mlflow.set_tracking_uri("https://dagshub.com/codedreamerD/SMSML_Fadhilah-Nurrahmayanti.mlflow")
-mlflow.set_experiment("Student Performance")
+mlflow.set_experiment("Experiment Student Performance")
 
 # === Load data
 data = pd.read_csv("dataset_preprocessed/students_performance_preprocessed.csv")
