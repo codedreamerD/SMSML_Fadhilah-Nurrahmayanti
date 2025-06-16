@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import dagshub
 
-# Tracking ke DagsHub (ganti tracking URI sesuai repo kamu)
+# Tracking ke DagsHub
 dagshub.init(repo_owner='codedreamerD', repo_name='SMSML_Fadhilah-Nurrahmayanti', mlflow=True)
 mlflow.set_tracking_uri("https://dagshub.com/codedreamerD/SMSML_Fadhilah-Nurrahmayanti.mlflow")
 mlflow.set_experiment("Experiment Student Performance")
@@ -53,7 +53,7 @@ for n_estimators in n_estimators_range:
             mlflow.log_metric("recall", rec)
             mlflow.log_metric("f1_score", f1)
 
-            # Save best model
+            # Simpan model terbaik
             if acc > best_score:
                 best_score = acc
                 best_params = {"n_estimators": n_estimators, "max_depth": max_depth}

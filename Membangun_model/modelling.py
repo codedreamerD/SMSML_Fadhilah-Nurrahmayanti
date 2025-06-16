@@ -23,7 +23,7 @@ input_example = X_train.iloc[:5]
 
 # Mulai MLflow run
 with mlflow.start_run():
-    mlflow.autolog()  # autolog otomatis log param, metric, dan model
+    mlflow.autolog()  # otomatis log param, metric, dan model
 
     model = RandomForestClassifier(n_estimators=500, max_depth=20, random_state=42)
     model.fit(X_train, y_train)
