@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 # Tracking ke lokal (localhost)
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
-mlflow.set_experiment("Student Performance Basic")
+mlflow.set_experiment("Experiment Student Performance")
 
 # Load data
 data = pd.read_csv("dataset_preprocessed/students_performance_preprocessed.csv")

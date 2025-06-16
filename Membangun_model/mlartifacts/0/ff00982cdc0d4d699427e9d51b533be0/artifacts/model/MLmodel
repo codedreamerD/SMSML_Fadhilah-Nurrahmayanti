@@ -1,0 +1,44 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.4.2
+mlflow_version: 2.19.0
+model_size_bytes: 18692226
+model_uuid: ca01088bcdb74ea6b71b6c8f06e9f497
+run_id: ff00982cdc0d4d699427e9d51b533be0
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "boolean", "name": "gender_female", "required": true}, {"type":
+    "boolean", "name": "gender_male", "required": true}, {"type": "boolean", "name":
+    "race/ethnicity_group A", "required": true}, {"type": "boolean", "name": "race/ethnicity_group
+    B", "required": true}, {"type": "boolean", "name": "race/ethnicity_group C", "required":
+    true}, {"type": "boolean", "name": "race/ethnicity_group D", "required": true},
+    {"type": "boolean", "name": "race/ethnicity_group E", "required": true}, {"type":
+    "boolean", "name": "parental level of education_associate''s degree", "required":
+    true}, {"type": "boolean", "name": "parental level of education_bachelor''s degree",
+    "required": true}, {"type": "boolean", "name": "parental level of education_high
+    school", "required": true}, {"type": "boolean", "name": "parental level of education_master''s
+    degree", "required": true}, {"type": "boolean", "name": "parental level of education_some
+    college", "required": true}, {"type": "boolean", "name": "parental level of education_some
+    high school", "required": true}, {"type": "boolean", "name": "lunch_free/reduced",
+    "required": true}, {"type": "boolean", "name": "lunch_standard", "required": true},
+    {"type": "boolean", "name": "test preparation course_completed", "required": true},
+    {"type": "boolean", "name": "test preparation course_none", "required": true}]'
+  outputs: '[{"type": "string", "required": true}]'
+  params: null
+utc_time_created: '2025-06-16 22:06:12.035296'
