@@ -28,11 +28,4 @@ with mlflow.start_run():
     model = RandomForestClassifier(n_estimators=500, max_depth=20, random_state=42)
     model.fit(X_train, y_train)
 
-    # Simpan model ke MLflow
-    mlflow.sklearn.log_model(
-        sk_model=model,
-        artifact_path="model",
-        input_example=input_example
-    )
-
-print("Training & Logging selesai.")
+print("Training selesai dan sudah dilog secara otomatis.")
