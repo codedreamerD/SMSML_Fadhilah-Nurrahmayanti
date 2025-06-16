@@ -7,6 +7,7 @@ import joblib
 import dagshub
 import matplotlib.pyplot as plt
 import seaborn as sns
+import eli5
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
@@ -14,8 +15,6 @@ from sklearn.metrics import (
     confusion_matrix
 )
 from sklearn.model_selection import train_test_split
-
-import eli5
 from eli5.sklearn import explain_weights
 
 # === MLflow Tracking (DagsHub)
